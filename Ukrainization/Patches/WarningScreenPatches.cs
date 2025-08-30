@@ -1,200 +1,346 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using HarmonyLib;
+using MTM101BaldAPI.UI;
 using TMPro;
+using Ukrainization.API;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Ukrainization.Patches
 {
-    internal static class WarningScreenContainer
+    internal class ArrowPositioner : MonoBehaviour
     {
-        internal static (string, bool)[] screens =>
-            nonCriticalScreens
-                .Select(x => (x, false))
-                .ToArray()
-                .AddRangeToArray(criticalScreens.Select(x => (x, true)).ToArray())
-                .ToArray();
+        private TextMeshProUGUI textComponent = null!;
+        private RectTransform arrowRect = null!;
 
-        internal static List<string> nonCriticalScreens = new List<string>();
-
-        internal static List<string> criticalScreens = new List<string>();
-
-        internal static int currentPage = 0;
-
-        internal static string pressAny = "";
-    }
-
-    [HarmonyPatch(typeof(WarningScreen))]
-    [HarmonyPatch("Start")]
-    [HarmonyPriority(800)]
-    static class WarningScreenStartPatch
-    {
-        static bool Prefix(WarningScreen __instance)
+        public void Initialize(TextMeshProUGUI text, RectTransform arrow)
         {
-            string text = "";
-            if (Singleton<InputManager>.Instance.SteamInputActive)
-            {
-                text = string.Format(
-                    Singleton<LocalizationManager>.Instance.GetLocalizedText("Men_Warning"),
-                    Singleton<InputManager>.Instance.GetInputButtonName(
-                        "MouseSubmit",
-                        "Interface",
-                        false
-                    )
-                );
-                WarningScreenContainer.pressAny = string.Format(
-                    "НАТИСНІТЬ {0} ЩОБ ПРОДОВЖИТИ",
-                    Singleton<InputManager>.Instance.GetInputButtonName(
-                        "MouseSubmit",
-                        "Interface",
-                        false
-                    )
-                );
-            }
-            else
-            {
-                text = string.Format(
-                    Singleton<LocalizationManager>.Instance.GetLocalizedText("Men_Warning"),
-                    "БУДЬ-ЯКУ КЛАВІШУ"
-                );
-                WarningScreenContainer.pressAny = string.Format(
-                    "НАТИСНІТЬ {0} ЩОБ ПРОДОВЖИТИ",
-                    "БУДЬ-ЯКУ КЛАВІШУ"
-                );
-            }
-            WarningScreenContainer.nonCriticalScreens.Insert(0, text);
-            __instance.textBox.text = text;
-            return false;
+            textComponent = text;
+            arrowRect = arrow;
         }
-    }
 
-    [HarmonyPatch(typeof(WarningScreen))]
-    [HarmonyPatch("Advance")]
-    [HarmonyPriority(800)]
-    static class WarningScreenAdvancePatch
-    {
-        static bool Prefix(WarningScreen __instance)
+        void LateUpdate()
         {
-            if (WarningScreenContainer.currentPage >= WarningScreenContainer.screens.Length)
+            if (textComponent != null && arrowRect != null)
             {
-                return true;
-            }
-            if (
-                (WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item2)
-                && (
-                    (WarningScreenContainer.currentPage + 1)
-                    >= WarningScreenContainer.screens.Length
-                )
-            )
-            {
-                return false;
-            }
-            WarningScreenContainer.currentPage++;
-            if (WarningScreenContainer.currentPage >= WarningScreenContainer.screens.Length)
-            {
-                return true;
-            }
-            Singleton<GlobalCam>.Instance.Transition(UiTransition.Dither, 0.01666667f);
-            if (!WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item2)
-            {
-                __instance.textBox.text =
-                    "<color=yellow>УВАГА!</color>\n"
-                    + WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item1
-                    + "\n\n"
-                    + WarningScreenContainer.pressAny;
-            }
-            else
-            {
-                if (
-                    (
-                        (WarningScreenContainer.currentPage + 1)
-                        < WarningScreenContainer.screens.Length
-                    )
-                )
+                textComponent.ForceMeshUpdate();
+                var textInfo = textComponent.textInfo;
+
+                if (textInfo.characterCount > 0)
                 {
-                    __instance.textBox.text =
-                        "<color=red>ПОМИЛКА!</color>\n"
-                        + WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item1
-                        + "\n\n"
-                        + WarningScreenContainer.pressAny;
-                }
-                else
-                {
-                    __instance.textBox.text =
-                        "<color=red>ПОМИЛКА!</color>\n"
-                        + WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item1
-                        + "\n\nНАТИСНІТЬ ALT+F4 ЩОБ ВИЙТИ";
+                    var lastVisibleCharInfo = textInfo.characterInfo[textInfo.characterCount - 1];
+                    float textEdgeX = lastVisibleCharInfo.topRight.x;
+
+                    arrowRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    arrowRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    arrowRect.pivot = new Vector2(0.5f, 0.5f);
+                    arrowRect.anchoredPosition = new Vector2(textEdgeX + 5f, 2.4f);
                 }
             }
-            return false;
         }
     }
 
-    // Цей Postfix-патч спрацює *після* того, як MTM101BMDE підготує екран попердження.
-    // Ми просто заміняємо англійський текст на український.
-    [HarmonyPatch(typeof(WarningScreen))]
-    internal class WarningScreen_Patch
+    [HarmonyPatch]
+    internal class MainMenuPatch
     {
-        [HarmonyPatch("Start")]
-        [HarmonyPostfix]
-        private static void Start_Postfix(WarningScreen __instance)
+        private static readonly Dictionary<string, string> LocalizationKeys = new Dictionary<
+            string,
+            string
+        >()
         {
-            TranslateWarningText(__instance.textBox);
+            { "StartTest", "Ukr_Menu_TestMapText" },
+            { "StartTest_1", "Ukr_Menu_TestMapText_1" },
+            { "Reminder", "Ukr_Menu_Reminder" },
+            { "ModInfo", "Ukr_Menu_ModInfo" },
+        };
+
+        private static readonly List<SocialMediaInfo> SocialMediaLinks = new List<SocialMediaInfo>()
+        {
+            new SocialMediaInfo("TelegramButton", "Ukr_Menu_Telegram", ""),
+            new SocialMediaInfo("DiscordButton", "Ukr_Menu_Discord", ""),
+            new SocialMediaInfo(
+                "GameBananaButton",
+                "Ukr_Menu_GameBanana",
+                "https://gamebanana.com/members/3318449"
+            ),
+            new SocialMediaInfo(
+                "YouTubeButton",
+                "Ukr_Menu_YouTube",
+                "https://www.youtube.com/@Denyscrasav4ik"
+            ),
+            new SocialMediaInfo(
+                "GithubButton",
+                "Ukr_Menu_Github",
+                "https://github.com/Denyscrasav4ik/BBPU"
+            ),
+        };
+
+        private class SocialMediaInfo
+        {
+            public string ButtonName { get; private set; }
+            public string LocalizationKey { get; private set; }
+            public string Url { get; private set; }
+
+            public SocialMediaInfo(string buttonName, string localizationKey, string url)
+            {
+                ButtonName = buttonName;
+                LocalizationKey = localizationKey;
+                Url = url;
+            }
         }
 
-        [HarmonyPatch("Advance")]
-        [HarmonyPostfix]
-        private static void Advance_Postfix(WarningScreen __instance)
+        private static readonly List<KeyValuePair<string, Vector2>> SizeDeltaTargets = new List<
+            KeyValuePair<string, Vector2>
+        >
         {
-            TranslateWarningText(__instance.textBox);
+            new KeyValuePair<string, Vector2>("StartTest", new Vector2(210f, 32f)),
+            new KeyValuePair<string, Vector2>("StartTest_1", new Vector2(228f, 32f)),
+        };
+
+        [HarmonyPatch(typeof(GameObject), "SetActive")]
+        private static class SetActivePatch
+        {
+            [HarmonyPostfix]
+            private static void Postfix(GameObject __instance, bool value)
+            {
+                if (__instance.name == "Menu" && value)
+                {
+                    ApplySizeChanges(__instance.transform);
+                    ApplyLocalization(__instance.transform);
+                    CreateModInfoButton(__instance.transform);
+                }
+            }
         }
 
-        private static void TranslateWarningText(TMP_Text textBox)
+        private static GameObject? socialLinksPanel = null;
+        private static bool dropdownVisible = false;
+        private static RectTransform? dropdownArrow = null;
+
+        private static void CreateModInfoButton(Transform rootTransform)
         {
-            if (textBox == null)
+            if (rootTransform == null)
                 return;
 
-            string currentText = textBox.text;
+            Transform? reminderTransform = rootTransform.Find("Reminder");
+            if (reminderTransform == null)
+                return;
 
-            // Переклад заголовків
-            currentText = currentText.Replace("WARNING!", "УВАГА!");
-            currentText = currentText.Replace("ERROR!", "ПОМИЛКА!");
+            Transform? existingModInfo = rootTransform.Find("ModInfo");
+            if (existingModInfo != null)
+                return;
 
-            // Переклад тексту попердження (якщо він є)
-            if (
-                currentText.Contains(
-                    "This game is not suitable for children or those who are easily disturbed."
-                )
-            )
+            GameObject modInfo = GameObject.Instantiate(
+                reminderTransform.gameObject,
+                rootTransform
+            );
+            modInfo.name = "ModInfo";
+
+            modInfo.transform.localPosition = new Vector3(-180f, 155f, 0f);
+            modInfo.transform.SetSiblingIndex(15);
+
+            RectTransform? rectTransform = modInfo.GetComponent<RectTransform>();
+            if (rectTransform != null)
             {
-                currentText =
-                    "Ця гра не підходить для дітей, чи людей за слабкою психікою.\nВона включає гучні звуки, та лякаючі образи.";
+                rectTransform.sizeDelta = new Vector2(150f, 50f);
+                rectTransform.offsetMin = new Vector2(-239f, 160f);
             }
 
-            // Переклад інструкції "Press any button to continue"
-            if (currentText.Contains("PRESS ANY BUTTON TO CONTINUE"))
+            TextMeshProUGUI? textComponent = modInfo.GetComponent<TextMeshProUGUI>();
+            if (textComponent != null)
             {
-                currentText = currentText.Replace(
-                    "PRESS ANY BUTTON TO CONTINUE",
-                    "НАТИСНІТЬ БУДЬ-ЯКУ КЛАВІШУ ЩОБ ПРОДОВЖИТИ"
-                );
-            }
-            else
-            {
-                // Для случаев, когда указана конкретная кнопка
-                currentText = System.Text.RegularExpressions.Regex.Replace(
-                    currentText,
-                    @"PRESS (.+) TO CONTINUE",
-                    "НАТИСНІТЬ $1 ЩОБ ПРОДОВЖИТИ"
-                );
+                textComponent.raycastTarget = true;
+
+                TextLocalizer? localizer = textComponent.GetComponent<TextLocalizer>();
+                if (localizer == null)
+                {
+                    localizer = textComponent.gameObject.AddComponent<TextLocalizer>();
+                }
+
+                GameObject arrowObject = new GameObject("DropdownArrow", typeof(RectTransform));
+                arrowObject.transform.SetParent(modInfo.transform, false);
+
+                RectTransform arrowRect = arrowObject.GetComponent<RectTransform>();
+                // arrowRect.anchorMin = new Vector2(1, 0.5f);
+                // arrowRect.anchorMax = new Vector2(1, 0.5f);
+                // arrowRect.pivot = new Vector2(0.5f, 0.5f);
+                // arrowRect.anchoredPosition = new Vector2(2, 2.4f);
+                arrowRect.sizeDelta = new Vector2(8f, 8f);
+
+                modInfo.AddComponent<ArrowPositioner>().Initialize(textComponent, arrowRect);
+
+                GameObject triangle = new GameObject("Triangle", typeof(RectTransform));
+                triangle.transform.SetParent(arrowObject.transform, false);
+
+                RectTransform triangleRect = triangle.GetComponent<RectTransform>();
+                triangleRect.anchorMin = Vector2.zero;
+                triangleRect.anchorMax = Vector2.one;
+                triangleRect.sizeDelta = Vector2.zero;
+
+                TriangleImage triangleUI = triangle.AddComponent<TriangleImage>();
+                triangleUI.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+
+                dropdownArrow = arrowRect;
+
+                localizer.key = "Ukr_Menu_ModInfo";
+                localizer.RefreshLocalization();
+
+                StandardMenuButton button =
+                    textComponent.gameObject.ConvertToButton<StandardMenuButton>(true);
+                button.underlineOnHigh = true;
+
+                button.OnPress.AddListener(() =>
+                {
+                    ToggleSocialLinksDropdown(rootTransform, modInfo);
+                });
             }
 
-            // Перевод инструкции выхода
-            currentText = currentText.Replace("PRESS ALT+F4 TO EXIT", "НАТИСНІТЬ ALT+F4 ЩОБ ВИЙТИ");
+            CreateSocialLinksPanel(rootTransform, modInfo);
+        }
 
-            textBox.text = currentText;
+        private static void CreateSocialLinksPanel(
+            Transform rootTransform,
+            GameObject modInfoButton
+        )
+        {
+            GameObject panel = new GameObject(
+                "SocialLinksPanel",
+                typeof(RectTransform),
+                typeof(CanvasRenderer),
+                typeof(Image)
+            );
+            panel.transform.SetParent(rootTransform, false);
+
+            panel.transform.SetSiblingIndex(16);
+
+            RectTransform panelRect = panel.GetComponent<RectTransform>();
+            panelRect.anchorMin = new Vector2(0, 1);
+            panelRect.anchorMax = new Vector2(0, 1);
+
+            panelRect.anchoredPosition = new Vector2(145, -116);
+
+            float buttonHeight = 35f;
+            float topBottomPadding = 20f;
+            float panelHeight = (SocialMediaLinks.Count * buttonHeight) + topBottomPadding;
+
+            panelRect.sizeDelta = new Vector2(130f, panelHeight);
+
+            Image panelImage = panel.GetComponent<Image>();
+            panelImage.color = new Color(0.1f, 0.1f, 0.1f, 0.9f);
+
+            for (int i = 0; i < SocialMediaLinks.Count; i++)
+            {
+                SocialMediaInfo info = SocialMediaLinks[i];
+                CreateSocialButton(panel, info.ButtonName, info.Url, i);
+            }
+
+            panel.SetActive(false);
+            socialLinksPanel = panel;
+        }
+
+        private static void CreateSocialButton(
+            GameObject parent,
+            string buttonName,
+            string url,
+            int index
+        )
+        {
+            GameObject buttonObj = new GameObject(
+                buttonName,
+                typeof(RectTransform),
+                typeof(TextMeshProUGUI)
+            );
+            buttonObj.transform.SetParent(parent.transform, false);
+
+            RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
+            buttonRect.anchorMin = new Vector2(0, 1);
+            buttonRect.anchorMax = new Vector2(1, 1);
+            buttonRect.pivot = new Vector2(0.5f, 1);
+            buttonRect.anchoredPosition = new Vector3(0, -10 - (index * 35), 0);
+            buttonRect.sizeDelta = new Vector2(0, 30);
+
+            TextMeshProUGUI textComponent = buttonObj.GetComponent<TextMeshProUGUI>();
+            textComponent.fontSize = 16;
+            textComponent.alignment = TextAlignmentOptions.Center;
+            textComponent.raycastTarget = true;
+
+            TextLocalizer localizer = buttonObj.AddComponent<TextLocalizer>();
+
+            string? localizationKey = SocialMediaLinks
+                .Find(x => x.ButtonName == buttonName)
+                ?.LocalizationKey;
+            if (string.IsNullOrEmpty(localizationKey))
+            {
+                localizationKey = buttonName;
+            }
+
+            localizer.key = localizationKey;
+            localizer.RefreshLocalization();
+
+            StandardMenuButton button = buttonObj.ConvertToButton<StandardMenuButton>(true);
+            button.underlineOnHigh = true;
+
+            button.OnPress.AddListener(() =>
+            {
+                Application.OpenURL(url);
+                ToggleSocialLinksDropdown(null, null);
+            });
+        }
+
+        private static void ToggleSocialLinksDropdown(
+            Transform? rootTransform,
+            GameObject? modInfoButton
+        )
+        {
+            if (socialLinksPanel == null || rootTransform == null || modInfoButton == null)
+            {
+                return;
+            }
+
+            dropdownVisible = !dropdownVisible;
+            socialLinksPanel.SetActive(dropdownVisible);
+
+            if (dropdownArrow != null)
+            {
+                dropdownArrow.localRotation = Quaternion.Euler(0, 0, dropdownVisible ? -90 : 0);
+            }
+        }
+
+        private static void ApplySizeChanges(Transform rootTransform)
+        {
+            rootTransform.SetSizeDeltas(SizeDeltaTargets);
+        }
+
+        private class TriangleImage : UnityEngine.UI.Graphic
+        {
+            protected override void OnPopulateMesh(VertexHelper vh)
+            {
+                vh.Clear();
+
+                Vector2 center = rectTransform.rect.center;
+                float width = rectTransform.rect.width;
+                float height = rectTransform.rect.height;
+
+                UIVertex vert = UIVertex.simpleVert;
+                vert.color = color;
+
+                vert.position = new Vector3(center.x + width / 2, center.y, 0);
+                vh.AddVert(vert);
+
+                vert.position = new Vector3(center.x - width / 2, center.y + height / 2, 0);
+                vh.AddVert(vert);
+
+                vert.position = new Vector3(center.x - width / 2, center.y - height / 2, 0);
+                vh.AddVert(vert);
+
+                vh.AddTriangle(0, 1, 2);
+            }
+        }
+
+        private static void ApplyLocalization(Transform rootTransform)
+        {
+            rootTransform.ApplyLocalizations(LocalizationKeys);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace Ukrainization.Patches
             new SocialMediaInfo(
                 "GameBananaButton",
                 "Ukr_Menu_GameBanana",
-                "https://gamebanana.com/members/3318449"
+                "https://gamebanana.com/mods/617076"
             ),
             new SocialMediaInfo(
                 "YouTubeButton",
@@ -73,7 +73,7 @@ namespace Ukrainization.Patches
             new SocialMediaInfo(
                 "GithubButton",
                 "Ukr_Menu_Github",
-                "https://github.com/Denyscrasav4ik"
+                "https://github.com/Denyscrasav4ik/BBPU"
             ),
         };
 

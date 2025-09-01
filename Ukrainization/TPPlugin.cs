@@ -34,7 +34,7 @@ namespace Ukrainization
         public static Dictionary<string, AudioClip> AllClips { get; private set; } =
             new Dictionary<string, AudioClip>();
         private Harmony? harmonyInstance = null!;
-        private const string expectedGameVersion = "0.11";
+        private const string expectedGameVersion = "0.12";
 
         private static readonly string[] menuTextureNames =
         {
@@ -327,3 +327,4 @@ namespace Ukrainization
         }
     }
 }
+

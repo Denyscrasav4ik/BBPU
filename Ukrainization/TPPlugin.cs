@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -82,7 +82,7 @@ namespace Ukrainization
         {
             yield return 3;
 
-            yield return "Завантаження ресурсів русифікатора...";
+            yield return "Завантаження ресурсів українізатора...";
             API.Logger.Info("Завантаження локалізованих ресурсів...");
 
             string modPath = AssetLoader.GetModPath(this);
@@ -327,4 +327,3 @@ namespace Ukrainization
         }
     }
 }
-

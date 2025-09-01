@@ -2,7 +2,7 @@
 
 ![Версія](https://img.shields.io/badge/Версія-1.0.0.0-blue)
 ![Статус розробки](https://img.shields.io/badge/Статус-75%25-yellow)
-![Гра](https://img.shields.io/badge/Гра-Baldi's%20Basics%20Plus%200.11-green)
+![Гра](https://img.shields.io/badge/Гра-Baldi's%20Basics%20Plus%200.12-green)
 
 ## 📝 Опис
 
@@ -28,7 +28,7 @@
 
 ## ⚙️ Вимоги
 
-* [Baldi's Basics Plus](https://www.basicallygames.com/baldis-basics-plus) <sub><sup>(0.11)</sup></sub>
+* [Baldi's Basics Plus](https://www.basicallygames.com/baldis-basics-plus) <sub><sup>(0.12)</sup></sub>
 * [BepInEx](https://github.com/BepInEx/BepInEx/releases/latest) <sub><sup>(5.4.23.3+)</sup></sub>
 * [MTM101BaldAPI](https://gamebanana.com/mods/383711) <sub><sup>(8.1.0.0+)</sup></sub>
 * [CyrillicPlus](https://gamebanana.com/mods/524258) <sub><sup>(1.2.1)</sup></sub>

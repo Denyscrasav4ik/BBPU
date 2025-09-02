@@ -73,7 +73,7 @@ namespace Ukrainization
                 AssetLoader.LoadLocalizationFolder(langPath, Language.English);
             }
 
-            LoadingEvents.RegisterOnAssetsLoaded(Info, OnAssetsLoaded(), false);
+            LoadingEvents.RegisterOnAssetsLoaded(Info, OnAssetsLoaded(), 0);
 
             gameObject.AddComponent<MenuTextureManager>();
         }

@@ -36,6 +36,7 @@ namespace Ukrainization.Patches
             { "StealthyChallenge", "Ukr_Floor_StealthyChallenge" },
             { "GrappleChallenge", "Ukr_Floor_GrappleChallenge" },
             { "SpeedyChallenge", "Ukr_Floor_SpeedyChallenge" },
+            { "EventTest", "Ukr_Floor_EventTest" },
         };
 
         [HarmonyPatch(typeof(ElevatorScreen), "UpdateFloorDisplay")]

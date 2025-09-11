@@ -1,6 +1,6 @@
 # Baldi's Basics Plus Українізація
 
-![Версія](https://img.shields.io/badge/Версія-1.0.1.1-blue)
+![Версія](https://img.shields.io/github/v/release/denyscrasav4ik/BBPU?label=%D0%92%D0%B5%D1%80%D1%81%D1%96%D1%8F)
 ![Статус розробки](https://img.shields.io/badge/Статус-75%25-yellow)
 ![Гра](https://img.shields.io/badge/Гра-Baldi's%20Basics%20Plus%200.12-green)
 

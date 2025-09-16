@@ -1,8 +1,8 @@
 # Baldi's Basics Plus Українізація
 
 ![Версія](https://img.shields.io/github/v/release/denyscrasav4ik/BBPU?label=%D0%92%D0%B5%D1%80%D1%81%D1%96%D1%8F)
-![Статус розробки](https://img.shields.io/badge/Статус-100%25-yellow)
-![Гра](https://img.shields.io/badge/Гра-Baldi's%20Basics%20Plus%200.12-green)
+![Статус розробки](https://img.shields.io/badge/Статус-75%25-yellow)
+![Гра](https://img.shields.io/badge/Гра-Baldi's%20Basics%20Plus%200.12.X-green)
 
 ## 📝 Опис
 
@@ -28,7 +28,7 @@
 
 ## ⚙️ Вимоги
 
-* [Baldi's Basics Plus](https://www.basicallygames.com/baldis-basics-plus) <sub><sup>(0.12)</sup></sub>
+* [Baldi's Basics Plus](https://www.basicallygames.com/baldis-basics-plus) <sub><sup>(0.12.X)</sup></sub>
 * [BepInEx](https://github.com/BepInEx/BepInEx/releases/latest) <sub><sup>(5.4.23.3+)</sup></sub>
 * [MTM101BaldAPI](https://gamebanana.com/mods/383711) <sub><sup>(9.0.0.0+)</sup></sub>
 * [CyrillicPlus](https://gamebanana.com/mods/524258) <sub><sup>(1.2.1)</sup></sub>

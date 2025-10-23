@@ -146,7 +146,7 @@ namespace Ukrainization.Patches
                             textComponent.gameObject.AddComponent<CustomTextLocalizer>();
                         customLocalizer.key = localizationKey;
                         customLocalizer.originalText = "YTPs";
-                        customLocalizer.localizedText = "ОТМ";
+                        customLocalizer.localizedText = "БТМ";
                     }
                 }
             }

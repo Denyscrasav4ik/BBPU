@@ -10,6 +10,7 @@ namespace Ukrainization.API
         public static ConfigEntry<bool> EnableTextures { get; private set; } = null!;
         public static ConfigEntry<bool> EnableSounds { get; private set; } = null!;
         public static ConfigEntry<bool> EnableLogging { get; private set; } = null!;
+        public static ConfigEntry<bool> EnableDevMode { get; private set; } = null!;
         private static ManualLogSource _logger = null!;
 
         public static void Initialize(BaseUnityPlugin plugin, ManualLogSource logger)
@@ -36,6 +37,12 @@ namespace Ukrainization.API
             );
 
             _logger.LogInfo("Config loaded successfully.");
+            EnableDevMode = plugin.Config.Bind(
+                "Development",
+                "Enable Dev Mode",
+                false,
+                "Enable development mode (scans and exports new posters). DISABLE FOR RELEASE!"
+            );
         }
 
         public static bool AreTexturesEnabled()
@@ -51,6 +58,11 @@ namespace Ukrainization.API
         public static bool IsLoggingEnabled()
         {
             return EnableLogging.Value;
+        }
+
+        public static bool IsDevModeEnabled()
+        {
+            return EnableDevMode.Value;
         }
     }
 }

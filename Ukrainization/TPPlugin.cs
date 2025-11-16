@@ -13,6 +13,20 @@ using UnityEngine;
 namespace Ukrainization
 {
     [Serializable]
+    public class PosterTextData
+    {
+        public string textKey = string.Empty;
+
+        public IntVector2 position;
+
+        public IntVector2 size;
+
+        public int fontSize;
+
+        public Color color;
+    }
+
+    [Serializable]
     public class PosterTextTable
     {
         public List<PosterTextData> items = new List<PosterTextData>();
@@ -57,7 +71,8 @@ namespace Ukrainization
             API.Logger.Info(
                 $"Текстури: {(ConfigManager.AreTexturesEnabled() ? "Увімкнені" : "Вимкнені")}, "
                     + $"Звуки: {(ConfigManager.AreSoundsEnabled() ? "Увімкнені" : "Вимкнені")}, "
-                    + $"Логування: {(ConfigManager.IsLoggingEnabled() ? "Увімкнене" : "Вимкнене")}"
+                    + $"Логування: {(ConfigManager.IsLoggingEnabled() ? "Увімкнене" : "Вимкнене")}, "
+                    + $"Режим розробки: {(ConfigManager.IsDevModeEnabled() ? "УВІМКНЕНИЙ" : "Вимкнений")}"
             );
 
             harmonyInstance = new Harmony(UkrainizationTemp.ModGUID);
@@ -133,6 +148,15 @@ namespace Ukrainization
 
             yield return "Оновлення плакатів...";
             UpdatePosters(modPath);
+
+            // Сканування нових плакатів у режимі розробки
+
+            if (ConfigManager.IsDevModeEnabled())
+            {
+                yield return "Сканування нових плакатів (DEV MODE)...";
+
+                PosterScanner.ScanAndExportNewPosters(modPath);
+            }
 
             API.Logger.Info("Завантаження ресурсів завершено!");
         }
@@ -297,8 +321,16 @@ namespace Ukrainization
                                 var modifiedData = posterData.items[i];
 
                                 sourceData.textKey = modifiedData.textKey;
-                                sourceData.position = modifiedData.position;
-                                sourceData.size = modifiedData.size;
+
+                                sourceData.position = new IntVector2(
+                                    modifiedData.position.x,
+                                    modifiedData.position.z
+                                );
+
+                                sourceData.size = new IntVector2(
+                                    modifiedData.size.x,
+                                    modifiedData.size.z
+                                );
                                 sourceData.fontSize = modifiedData.fontSize;
                                 sourceData.color = modifiedData.color;
                             }

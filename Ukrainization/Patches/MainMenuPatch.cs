@@ -58,8 +58,6 @@ namespace Ukrainization.Patches
 
         private static readonly List<SocialMediaInfo> SocialMediaLinks = new List<SocialMediaInfo>()
         {
-            new SocialMediaInfo("TelegramButton", "Ukr_Menu_Telegram", ""),
-            new SocialMediaInfo("DiscordButton", "Ukr_Menu_Discord", ""),
             new SocialMediaInfo(
                 "GameBananaButton",
                 "Ukr_Menu_GameBanana",
@@ -218,7 +216,7 @@ namespace Ukrainization.Patches
             panelRect.anchorMin = new Vector2(0, 1);
             panelRect.anchorMax = new Vector2(0, 1);
 
-            panelRect.anchoredPosition = new Vector2(145, -116);
+            panelRect.anchoredPosition = new Vector2(145, -75);
 
             float buttonHeight = 35f;
             float topBottomPadding = 20f;

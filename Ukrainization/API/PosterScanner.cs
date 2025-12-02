@@ -21,7 +21,7 @@ namespace Ukrainization.API
             if (!Directory.Exists(postersPath))
             {
                 Directory.CreateDirectory(postersPath);
-                Logger.ForceInfo($"[DEV MODE] Створена папка для плакатва: {postersPath}");
+                Logger.ForceInfo($"[DEV MODE] Створена папка для плакатів: {postersPath}");
             }
 
             Logger.ForceInfo("=== ПОЧАЛО СКАНУВАННЯ ПЛАКАТІВ (DEV MODE) ===");

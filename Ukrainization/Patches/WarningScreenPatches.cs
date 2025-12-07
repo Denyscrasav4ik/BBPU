@@ -45,7 +45,7 @@ namespace Ukrainization.Patches
                     )
                 );
                 WarningScreenContainer.pressAny = string.Format(
-                    "НАТИСНІТЬ {0} ЩОБ ПРОДОВЖИТИ",
+                    "РќРђРўРРЎРќР†РўР¬ {0} Р©РћР‘ РџР РћР”РћР’Р–РРўР",
                     Singleton<InputManager>.Instance.GetInputButtonName(
                         "MouseSubmit",
                         "Interface",
@@ -57,11 +57,11 @@ namespace Ukrainization.Patches
             {
                 text = string.Format(
                     Singleton<LocalizationManager>.Instance.GetLocalizedText("Men_Warning"),
-                    "БУДЬ-ЯКУ КЛАВІШУ"
+                    "Р‘РЈР”Р¬-РЇРљРЈ РљР›РђР’Р†РЁРЈ"
                 );
                 WarningScreenContainer.pressAny = string.Format(
-                    "НАТИСНІТЬ {0} ЩОБ ПРОДОВЖИТИ",
-                    "БУДЬ-ЯКУ КЛАВІШУ"
+                    "РќРђРўРРЎРќР†РўР¬ {0} Р©РћР‘ РџР РћР”РћР’Р–РРўР",
+                    "Р‘РЈР”Р¬-РЇРљРЈ РљР›РђР’Р†РЁРЈ"
                 );
             }
             WarningScreenContainer.nonCriticalScreens.Insert(0, text);
@@ -100,7 +100,7 @@ namespace Ukrainization.Patches
             if (!WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item2)
             {
                 __instance.textBox.text =
-                    "<color=yellow>УВАГА!</color>\n"
+                    "<color=yellow>РЈР’РђР“Рђ!</color>\n"
                     + WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item1
                     + "\n\n"
                     + WarningScreenContainer.pressAny;
@@ -115,7 +115,7 @@ namespace Ukrainization.Patches
                 )
                 {
                     __instance.textBox.text =
-                        "<color=red>ПОМИЛКА!</color>\n"
+                        "<color=red>РџРћРњРР›РљРђ!</color>\n"
                         + WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item1
                         + "\n\n"
                         + WarningScreenContainer.pressAny;
@@ -123,17 +123,17 @@ namespace Ukrainization.Patches
                 else
                 {
                     __instance.textBox.text =
-                        "<color=red>ПОМИЛКА!</color>\n"
+                        "<color=red>РџРћРњРР›РљРђ!</color>\n"
                         + WarningScreenContainer.screens[WarningScreenContainer.currentPage].Item1
-                        + "\n\nНАТИСНІТЬ ALT+F4 ЩОБ ВИЙТИ";
+                        + "\n\nРќРђРўРРЎРќР†РўР¬ ALT+F4 Р©РћР‘ Р’РР™РўР";
                 }
             }
             return false;
         }
     }
 
-    // Цей Postfix-патч спрацює *після* того, як MTM101BMDE підготує екран попердження.
-    // Ми просто заміняємо англійський текст на український.
+    // Р¦РµР№ Postfix-РїР°С‚С‡ СЃРїСЂР°С†СЋС” *РїС–СЃР»СЏ* С‚РѕРіРѕ, СЏРє MTM101BMDE РїС–РґРіРѕС‚СѓС” РµРєСЂР°РЅ РїРѕРїРµСЂРµРґР¶РµРЅРЅСЏ.
+    // РњРё РїСЂРѕСЃС‚Рѕ Р·Р°РјС–РЅСЏС”РјРѕ Р°РЅРіР»С–Р№СЃСЊРєРёР№ С‚РµРєСЃС‚ РЅР° СѓРєСЂР°С—РЅСЃСЊРєРёР№.
     [HarmonyPatch(typeof(WarningScreen))]
     internal class WarningScreen_Patch
     {
@@ -158,11 +158,11 @@ namespace Ukrainization.Patches
 
             string currentText = textBox.text;
 
-            // Переклад заголовків
-            currentText = currentText.Replace("WARNING!", "УВАГА!");
-            currentText = currentText.Replace("ERROR!", "ПОМИЛКА!");
+            // РџРµСЂРµРєР»Р°Рґ Р·Р°РіРѕР»РѕРІРєС–РІ
+            currentText = currentText.Replace("WARNING!", "РЈР’РђР“Рђ!");
+            currentText = currentText.Replace("ERROR!", "РџРћРњРР›РљРђ!");
 
-            // Переклад тексту попердження (якщо він є)
+            // РџРµСЂРµРєР»Р°Рґ С‚РµРєСЃС‚Сѓ РїРѕРїРµСЂРµРґР¶РµРЅРЅСЏ (СЏРєС‰Рѕ РІС–РЅ С”)
             if (
                 currentText.Contains(
                     "This game is not suitable for children or those who are easily disturbed."
@@ -170,29 +170,29 @@ namespace Ukrainization.Patches
             )
             {
                 currentText =
-                    "Ця гра не підходить для дітей, чи людей за слабкою психікою.\nВона включає гучні звуки, та лякаючі образи.";
+                    "Р¦СЏ РіСЂР° РЅРµ РїС–РґС…РѕРґРёС‚СЊ РґР»СЏ РґС–С‚РµР№, С‡Рё Р»СЋРґРµР№ Р·Р° СЃР»Р°Р±РєРѕСЋ РїСЃРёС…С–РєРѕСЋ.\nР’РѕРЅР° РІРєР»СЋС‡Р°С” РіСѓС‡РЅС– Р·РІСѓРєРё, С‚Р° Р»СЏРєР°СЋС‡С– РѕР±СЂР°Р·Рё.";
             }
 
-            // Переклад інструкції "Press any button to continue"
+            // РџРµСЂРµРєР»Р°Рґ С–РЅСЃС‚СЂСѓРєС†С–С— "Press any button to continue"
             if (currentText.Contains("PRESS ANY BUTTON TO CONTINUE"))
             {
                 currentText = currentText.Replace(
                     "PRESS ANY BUTTON TO CONTINUE",
-                    "НАТИСНІТЬ БУДЬ-ЯКУ КЛАВІШУ ЩОБ ПРОДОВЖИТИ"
+                    "РќРђРўРРЎРќР†РўР¬ Р‘РЈР”Р¬-РЇРљРЈ РљР›РђР’Р†РЁРЈ Р©РћР‘ РџР РћР”РћР’Р–РРўР"
                 );
             }
             else
             {
-                // Для випадкыв коли вказано конкретну кнопку
+                // Р”Р»СЏ РІРёРїР°РґРєС–РІ, РєРѕР»Рё РІРєР°Р·Р°РЅР° РєРѕРЅРєСЂРµС‚РЅР° РєРЅРѕРїРєР°
                 currentText = System.Text.RegularExpressions.Regex.Replace(
                     currentText,
                     @"PRESS (.+) TO CONTINUE",
-                    "НАТИСНІТЬ $1 ЩОБ ПРОДОВЖИТИ"
+                    "РќРђРўРРЎРќР†РўР¬ $1 Р©РћР‘ РџР РћР”РћР’Р–РРўР"
                 );
             }
 
-            // Переклад інструкції вводу
-            currentText = currentText.Replace("PRESS ALT+F4 TO EXIT", "НАТИСНІТЬ ALT+F4 ЩОБ ВИЙТИ");
+            // РџРµСЂРµРєР»Р°Рґ С–РЅСЃС‚СЂСѓРєС†С–С— РІРёС…РѕРґСѓ
+            currentText = currentText.Replace("PRESS ALT+F4 TO EXIT", "РќРђРўРРЎРќР†РўР¬ ALT+F4 Р©РћР‘ Р’РР™РўР");
 
             textBox.text = currentText;
         }

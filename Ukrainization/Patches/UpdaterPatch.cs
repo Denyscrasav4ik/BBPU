@@ -126,7 +126,7 @@ namespace Ukrainization.Patches
                                         && method.DeclaringType.FullName.Contains("MTM101BaldAPI")
                                 )
                                 {
-                                    // API.Logger.Info($"Перехвачений доступ до Reminder кріз GetChild з MTM101BaldAPI (метод: {method.DeclaringType.FullName}.{method.Name})");
+                                    // API.Logger.Info($"Перехвачений доступ до Reminder крізь GetChild з MTM101BaldAPI (метод: {method.DeclaringType.FullName}.{method.Name})");
 
                                     Transform? oldParent = __result.parent;
 

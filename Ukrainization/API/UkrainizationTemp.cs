@@ -8,7 +8,7 @@ namespace Ukrainization.API
     {
         public const string ModGUID = "Ukrainization";
         public const string ModName = "Baldi's Basics Plus Ukrainization";
-        public const string ModVersion = "1.0.2.6";
+        public const string ModVersion = "3.0";
 
         public static string PostersFile = "PosterSettings.json";
     }

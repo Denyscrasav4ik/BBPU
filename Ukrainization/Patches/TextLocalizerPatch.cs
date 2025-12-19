@@ -28,7 +28,7 @@ namespace Ukrainization
             return ApplyLocalization();
         }
 
-        private object? ApplyLocalization()
+        public object? ApplyLocalization()
         {
             if (
                 textComponent != null

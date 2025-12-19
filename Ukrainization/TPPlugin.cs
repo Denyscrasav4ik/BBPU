@@ -91,6 +91,7 @@ namespace Ukrainization
             LoadingEvents.RegisterOnAssetsLoaded(Info, OnAssetsLoaded(), LoadingEventOrder.Post);
 
             gameObject.AddComponent<MenuTextureManager>();
+            gameObject.AddComponent<Ukrainization.Patches.ButtonNamesPatch>();
         }
 
         private IEnumerator OnAssetsLoaded()

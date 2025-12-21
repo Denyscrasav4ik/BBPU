@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
@@ -57,171 +59,164 @@ namespace Ukrainization.Patches
             localizer.RefreshLocalization();
         }
 
-        #region Dynamic Button & Title Localization on Windows
+        #region Dynamic Title & Content Localization for Window
 
         [HarmonyPatch(typeof(Rewired.UI.ControlMapper.Window), "Enable")]
-        private class WindowShowPatch
+        private class WindowPatch
         {
+            private static readonly Dictionary<string, string> ActionLocalizationMap =
+                new Dictionary<string, string>
+                {
+                    { "Restore Defaults", "Ukr_Ctrl_RestoreDefaults" },
+                    { "Horizontal movement", "Ukr_Ctrl_Action_1" },
+                    { "Strafe right", "Ukr_Ctrl_Action_2" },
+                    { "Strafe left", "Ukr_Ctrl_Action_3" },
+                    { "Vertical movement", "Ukr_Ctrl_Action_4" },
+                    { "Move forward", "Ukr_Ctrl_Action_5" },
+                    { "Move backward", "Ukr_Ctrl_Action_6" },
+                    { "Turn (Joystick)", "Ukr_Ctrl_Action_7" },
+                    { "Turn right", "Ukr_Ctrl_Action_8" },
+                    { "Turn left", "Ukr_Ctrl_Action_9" },
+                    { "Turn (Mouse)", "Ukr_Ctrl_Action_10" },
+                    { "Interact", "Ukr_Ctrl_Action_14" },
+                    { "Use item", "Ukr_Ctrl_Action_15" },
+                    { "Run", "Ukr_Ctrl_Action_16" },
+                    { "Look back", "Ukr_Ctrl_Action_17" },
+                    { "Quick map", "Ukr_Ctrl_Action_18" },
+                    { "Advanced map", "Ukr_Ctrl_Action_19" },
+                    { "Item select left", "Ukr_Ctrl_Action_20" },
+                    { "Item select right", "Ukr_Ctrl_Action_21" },
+                    { "Item select axis", "Ukr_Ctrl_Action_22" },
+                    { "ItemSelect +", "Ukr_Ctrl_Action_23" },
+                    { "ItemSelect -", "Ukr_Ctrl_Action_24" },
+                    { "Item 1", "Ukr_Ctrl_Action_25" },
+                    { "Item 2", "Ukr_Ctrl_Action_26" },
+                    { "Item 3", "Ukr_Ctrl_Action_27" },
+                    { "Item 4", "Ukr_Ctrl_Action_28" },
+                    { "Item 5", "Ukr_Ctrl_Action_29" },
+                    { "Item 6", "Ukr_Ctrl_Action_30" },
+                    { "Item 7", "Ukr_Ctrl_Action_31" },
+                    { "Item 8", "Ukr_Ctrl_Action_32" },
+                    { "Item 9", "Ukr_Ctrl_Action_33" },
+                    { "Pause", "Ukr_Ctrl_Action_34" },
+                    { "Cursor Horizontal (Joystick)", "Ukr_Ctrl_Action_36" },
+                    { "Cursor Horizontal (Joystick) +", "Ukr_Ctrl_Action_37" },
+                    { "Cursor Horizontal (Joystick) -", "Ukr_Ctrl_Action_38" },
+                    { "Cursor Vertical (Joystick)", "Ukr_Ctrl_Action_39" },
+                    { "Cursor Vertical (Joystick) +", "Ukr_Ctrl_Action_40" },
+                    { "Cursor Vertical (Joystick) -", "Ukr_Ctrl_Action_41" },
+                    { "Cursor Horizontal (Mouse)", "Ukr_Ctrl_Action_42" },
+                    { "Cursor Horizontal (Mouse) +", "Ukr_Ctrl_Action_43" },
+                    { "Cursor Horizontal (Mouse) -", "Ukr_Ctrl_Action_44" },
+                    { "Cursor Vertical (Mouse)", "Ukr_Ctrl_Action_45" },
+                    { "Cursor Vertical (Mouse) +", "Ukr_Ctrl_Action_46" },
+                    { "Cursor Vertical (Mouse) -", "Ukr_Ctrl_Action_47" },
+                    { "Click", "Ukr_Ctrl_Action_48" },
+                    { "Zoom Map In", "Ukr_Ctrl_Action_49" },
+                    { "Zoom Map Out", "Ukr_Ctrl_Action_50" },
+                    { "Cursor Speed Boost", "Ukr_Ctrl_Action_51" },
+                    { "Map Horizontal (Joystick)", "Ukr_Ctrl_Action_52" },
+                    { "Map Horizontal (Joystick) +", "Ukr_Ctrl_Action_53" },
+                    { "Map Horizontal (Joystick) -", "Ukr_Ctrl_Action_54" },
+                    { "Map Vertical (Joystick)", "Ukr_Ctrl_Action_55" },
+                    { "Map Vertical (Joystick) +", "Ukr_Ctrl_Action_56" },
+                    { "Map Vertical (Joystick) -", "Ukr_Ctrl_Action_57" },
+                    { "Map Horizontal (Mouse)", "Ukr_Ctrl_Action_58" },
+                    { "Map Horizontal (Mouse) +", "Ukr_Ctrl_Action_59" },
+                    { "Map Horizontal (Mouse) -", "Ukr_Ctrl_Action_60" },
+                    { "Map Vertical (Mouse)", "Ukr_Ctrl_Action_61" },
+                    { "Map Vertical (Mouse) +", "Ukr_Ctrl_Action_62" },
+                    { "Map Vertical (Mouse) -", "Ukr_Ctrl_Action_63" },
+                };
+
             [HarmonyPostfix]
             private static void Postfix(Rewired.UI.ControlMapper.Window __instance)
             {
                 ApplyDynamicTitleLocalization(__instance);
+                ApplyDynamicContentTextLocalization(__instance);
             }
 
             private static void ApplyDynamicTitleLocalization(
                 Rewired.UI.ControlMapper.Window window
             )
             {
-                Transform contentParent = window.transform.Find("Content");
-                if (contentParent == null)
-                    return;
-
-                TextMeshProUGUI titleText = null;
-                foreach (Transform t in contentParent.GetComponentsInChildren<Transform>(true))
-                {
-                    if (t.name == "Title Text")
-                    {
-                        titleText = t.GetComponent<TextMeshProUGUI>();
-                        if (titleText != null)
-                            break;
-                    }
-                }
-
+                TextMeshProUGUI titleText = FindText(window, "Title Text");
                 if (titleText == null)
                     return;
 
-                var localizer =
-                    titleText.gameObject.GetComponent<TextLocalizer>()
-                    ?? titleText.gameObject.AddComponent<TextLocalizer>();
+                foreach (var pair in ActionLocalizationMap.OrderByDescending(p => p.Key.Length))
+                {
+                    if (titleText.text.Contains(pair.Key))
+                    {
+                        string localized = Singleton<LocalizationManager>.Instance.GetLocalizedText(
+                            pair.Value
+                        );
+                        titleText.text = titleText.text.Replace(pair.Key, localized);
+                        break;
+                    }
+                }
+            }
 
-                string tmpText = titleText.text;
+            private static void ApplyDynamicContentTextLocalization(
+                Rewired.UI.ControlMapper.Window window
+            )
+            {
+                Transform content = window.transform.Find("Content");
+                if (content == null)
+                    return;
 
-                if (tmpText.Contains("Restore Defaults"))
-                    localizer.key = "Ukr_Ctrl_RestoreDefaults";
-                else if (tmpText.Contains("Horizontal movement"))
-                    localizer.key = "Ukr_Ctrl_Action_1";
-                else if (tmpText.Contains("Strafe right"))
-                    localizer.key = "Ukr_Ctrl_Action_2";
-                else if (tmpText.Contains("Strafe left"))
-                    localizer.key = "Ukr_Ctrl_Action_3";
-                else if (tmpText.Contains("Vertical movement"))
-                    localizer.key = "Ukr_Ctrl_Action_4";
-                else if (tmpText.Contains("Move forward"))
-                    localizer.key = "Ukr_Ctrl_Action_5";
-                else if (tmpText.Contains("Move backward"))
-                    localizer.key = "Ukr_Ctrl_Action_6";
-                else if (tmpText.Contains("Turn (Joystick)"))
-                    localizer.key = "Ukr_Ctrl_Action_7";
-                else if (tmpText.Contains("Turn right"))
-                    localizer.key = "Ukr_Ctrl_Action_8";
-                else if (tmpText.Contains("Turn left"))
-                    localizer.key = "Ukr_Ctrl_Action_9";
-                else if (tmpText.Contains("Turn (Mouse)"))
-                    localizer.key = "Ukr_Ctrl_Action_10";
-                else if (tmpText.Contains("Turn right"))
-                    localizer.key = "Ukr_Ctrl_Action_11";
-                else if (tmpText.Contains("Turn left"))
-                    localizer.key = "Ukr_Ctrl_Action_12";
-                else if (tmpText.Contains("Interact"))
-                    localizer.key = "Ukr_Ctrl_Action_14";
-                else if (tmpText.Contains("Use item"))
-                    localizer.key = "Ukr_Ctrl_Action_15";
-                else if (tmpText.Contains("Run"))
-                    localizer.key = "Ukr_Ctrl_Action_16";
-                else if (tmpText.Contains("Look back"))
-                    localizer.key = "Ukr_Ctrl_Action_17";
-                else if (tmpText.Contains("Quick map"))
-                    localizer.key = "Ukr_Ctrl_Action_18";
-                else if (tmpText.Contains("Advanced map"))
-                    localizer.key = "Ukr_Ctrl_Action_19";
-                else if (tmpText.Contains("Item select left"))
-                    localizer.key = "Ukr_Ctrl_Action_20";
-                else if (tmpText.Contains("Item select right"))
-                    localizer.key = "Ukr_Ctrl_Action_21";
-                else if (tmpText.Contains("Item select axis"))
-                    localizer.key = "Ukr_Ctrl_Action_22";
-                else if (tmpText.Contains("ItemSelect +"))
-                    localizer.key = "Ukr_Ctrl_Action_23";
-                else if (tmpText.Contains("ItemSelect -"))
-                    localizer.key = "Ukr_Ctrl_Action_24";
-                else if (tmpText.Contains("Item 1"))
-                    localizer.key = "Ukr_Ctrl_Action_25";
-                else if (tmpText.Contains("Item 2"))
-                    localizer.key = "Ukr_Ctrl_Action_26";
-                else if (tmpText.Contains("Item 3"))
-                    localizer.key = "Ukr_Ctrl_Action_27";
-                else if (tmpText.Contains("Item 4"))
-                    localizer.key = "Ukr_Ctrl_Action_28";
-                else if (tmpText.Contains("Item 5"))
-                    localizer.key = "Ukr_Ctrl_Action_29";
-                else if (tmpText.Contains("Item 6"))
-                    localizer.key = "Ukr_Ctrl_Action_30";
-                else if (tmpText.Contains("Item 7"))
-                    localizer.key = "Ukr_Ctrl_Action_31";
-                else if (tmpText.Contains("Item 8"))
-                    localizer.key = "Ukr_Ctrl_Action_32";
-                else if (tmpText.Contains("Item 9"))
-                    localizer.key = "Ukr_Ctrl_Action_33";
-                else if (tmpText.Contains("Pause"))
-                    localizer.key = "Ukr_Ctrl_Action_34";
-                else if (tmpText.Contains("Cursor Horizontal (Joystick)"))
-                    localizer.key = "Ukr_Ctrl_Action_36";
-                else if (tmpText.Contains("Cursor Horizontal (Joystick) +"))
-                    localizer.key = "Ukr_Ctrl_Action_37";
-                else if (tmpText.Contains("Cursor Horizontal (Joystick) -"))
-                    localizer.key = "Ukr_Ctrl_Action_38";
-                else if (tmpText.Contains("Cursor Vertical (Joystick)"))
-                    localizer.key = "Ukr_Ctrl_Action_39";
-                else if (tmpText.Contains("Cursor Vertical (Joystick) +"))
-                    localizer.key = "Ukr_Ctrl_Action_40";
-                else if (tmpText.Contains("Cursor Vertical (Joystick) -"))
-                    localizer.key = "Ukr_Ctrl_Action_41";
-                else if (tmpText.Contains("Cursor Horizontal (Mouse)"))
-                    localizer.key = "Ukr_Ctrl_Action_42";
-                else if (tmpText.Contains("Cursor Horizontal (Mouse) +"))
-                    localizer.key = "Ukr_Ctrl_Action_43";
-                else if (tmpText.Contains("Cursor Horizontal (Mouse) -"))
-                    localizer.key = "Ukr_Ctrl_Action_44";
-                else if (tmpText.Contains("Cursor Vertical (Mouse)"))
-                    localizer.key = "Ukr_Ctrl_Action_45";
-                else if (tmpText.Contains("Cursor Vertical (Mouse) +"))
-                    localizer.key = "Ukr_Ctrl_Action_46";
-                else if (tmpText.Contains("Cursor Vertical (Mouse) -"))
-                    localizer.key = "Ukr_Ctrl_Action_47";
-                else if (tmpText.Contains("Click"))
-                    localizer.key = "Ukr_Ctrl_Action_48";
-                else if (tmpText.Contains("Zoom Map In"))
-                    localizer.key = "Ukr_Ctrl_Action_49";
-                else if (tmpText.Contains("Zoom Map Out"))
-                    localizer.key = "Ukr_Ctrl_Action_50";
-                else if (tmpText.Contains("Cursor Speed Boost"))
-                    localizer.key = "Ukr_Ctrl_Action_51";
-                else if (tmpText.Contains("Map Horizontal (Joystick)"))
-                    localizer.key = "Ukr_Ctrl_Action_52";
-                else if (tmpText.Contains("Map Horizontal (Joystick) +"))
-                    localizer.key = "Ukr_Ctrl_Action_53";
-                else if (tmpText.Contains("Map Horizontal (Joystick) -"))
-                    localizer.key = "Ukr_Ctrl_Action_54";
-                else if (tmpText.Contains("Map Vertical (Joystick)"))
-                    localizer.key = "Ukr_Ctrl_Action_55";
-                else if (tmpText.Contains("Map Vertical (Joystick) +"))
-                    localizer.key = "Ukr_Ctrl_Action_56";
-                else if (tmpText.Contains("Map Vertical (Joystick) -"))
-                    localizer.key = "Ukr_Ctrl_Action_57";
-                else if (tmpText.Contains("Map Horizontal (Mouse)"))
-                    localizer.key = "Ukr_Ctrl_Action_58";
-                else if (tmpText.Contains("Map Horizontal (Mouse) +"))
-                    localizer.key = "Ukr_Ctrl_Action_59";
-                else if (tmpText.Contains("Map Horizontal (Mouse) -"))
-                    localizer.key = "Ukr_Ctrl_Action_60";
-                else if (tmpText.Contains("Map Vertical (Mouse)"))
-                    localizer.key = "Ukr_Ctrl_Action_61";
-                else if (tmpText.Contains("Map Vertical (Mouse) +"))
-                    localizer.key = "Ukr_Ctrl_Action_62";
-                else if (tmpText.Contains("Map Vertical (Mouse) -"))
-                    localizer.key = "Ukr_Ctrl_Action_63";
+                foreach (Transform child in content)
+                {
+                    if (!child.name.Contains("Content Text"))
+                        continue;
 
-                localizer.RefreshLocalization();
+                    TextMeshProUGUI contentText = child.GetComponent<TextMeshProUGUI>();
+                    if (contentText == null)
+                        continue;
+
+                    string text = contentText.text;
+                    string modified = text;
+
+                    foreach (var pair in ActionLocalizationMap.OrderByDescending(p => p.Key.Length))
+                    {
+                        if (modified.Contains(pair.Key))
+                        {
+                            string localized =
+                                Singleton<LocalizationManager>.Instance.GetLocalizedText(
+                                    pair.Value
+                                );
+                            modified = modified.Replace(pair.Key, localized);
+                        }
+                    }
+
+                    if (modified != text)
+                    {
+                        contentText.text = modified;
+
+                        var localizer =
+                            contentText.gameObject.GetComponent<TextLocalizer>()
+                            ?? contentText.gameObject.AddComponent<TextLocalizer>();
+                        localizer.key = "";
+                        localizer.RefreshLocalization();
+                    }
+                }
+            }
+
+            private static TextMeshProUGUI FindText(
+                Rewired.UI.ControlMapper.Window window,
+                string name
+            )
+            {
+                foreach (var t in window.transform.GetComponentsInChildren<Transform>(true))
+                {
+                    if (t.name == name)
+                    {
+                        var text = t.GetComponent<TextMeshProUGUI>();
+                        if (text != null)
+                            return text;
+                    }
+                }
+                return null;
             }
         }
 

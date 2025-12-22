@@ -53,7 +53,6 @@ namespace Ukrainization.API
 
                             if (!string.IsNullOrEmpty(latestVersionTag))
                             {
-                                // Logger.Info($"Остання версія на GitHub ({RepoOwner}/{RepoName}): {latestVersionTag}");
                                 Version currentModVersion = new Version(CurrentVersionString);
                                 string sanitizedLatestVersion = latestVersionTag.StartsWith("v")
                                     ? latestVersionTag.Substring(1)
@@ -78,31 +77,16 @@ namespace Ukrainization.API
                                         Logger.Info("Встановлено останню версію мода.");
                                     }
                                 }
-                                catch (Exception)
-                                {
-                                    // Logger.Error($"Помилка при порівнянні версій: {ex.Message}");
-                                }
+                                catch (Exception) { }
                             }
-                            else
-                            {
-                                // Logger.Error("Отримано порожній тег версії у відповіді GitHub API.");
-                            }
+                            else { }
                         }
-                        else
-                        {
-                            // Logger.Error("Не вдалося знайти тег версії у відповіді GitHub API.");
-                        }
+                        else { }
                     }
-                    else
-                    {
-                        // Logger.Error($"Помилка при запиті до GitHub API ({RepoOwner}/{RepoName}): {response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
-                    }
+                    else { }
                 }
             }
-            catch (Exception)
-            {
-                // Logger.Error($"Виключення при перевірці оновлень: {ex.Message}\n{ex.StackTrace}");
-            }
+            catch (Exception) { }
         }
     }
 }

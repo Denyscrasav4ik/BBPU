@@ -96,7 +96,6 @@ namespace Ukrainization
             pickModeTransform.SetOffsetMins(OffsetMinTargets);
             pickModeTransform.SetSizeDeltas(SizeDeltaTargets);
 
-            // This part with TransformFixator needs to be handled separately.
             foreach (var target in OffsetMinTargets)
             {
                 Transform? elementTransform = pickModeTransform.FindTransform(target.Key);

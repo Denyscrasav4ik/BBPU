@@ -75,7 +75,6 @@ namespace Ukrainization
             {
                 if (__instance != null && __instance.name == "About")
                 {
-                    // Debug.Log("[AboutMenuPatch] Кнопка About натиснута, скидання fixesApplied");
                     fixesApplied = false;
                 }
             }
@@ -106,7 +105,6 @@ namespace Ukrainization
 
         private static void ForceRefreshLocalization(Dictionary<string, Transform> transformMap)
         {
-            // Debug.Log("[AboutMenuPatch] Принудительная перезагрузка локализации");
             foreach (var entry in LocalizationKeys)
             {
                 if (transformMap.TryGetValue(entry.Key, out Transform targetTransform))
@@ -117,17 +115,12 @@ namespace Ukrainization
                         localizer.RefreshLocalization();
                     }
                 }
-                else
-                {
-                    // Debug.LogWarning($"[AboutMenuPatch] Не вдалося знайти шлях {entry.Key} в меню About");
-                }
+                else { }
             }
         }
 
         private static void ApplySizeDeltaChanges(Dictionary<string, Transform> transformMap)
         {
-            // Debug.Log("[AboutMenuPatch] Використання змінення розмірів");
-
             foreach (var target in SizeDeltaTargets)
             {
                 if (transformMap.TryGetValue(target.Key, out Transform elementTransform))
@@ -136,23 +129,15 @@ namespace Ukrainization
                     if (rectTransform != null)
                     {
                         rectTransform.sizeDelta = target.Value;
-                        // Debug.Log($"[AboutMenuPatch] Використано змінення розмірів {target.Value} до {target.Key}");
                     }
-                    else
-                    {
-                        // Debug.LogWarning($"[AboutMenuPatch] RectTransform компонент не знайдени на {target.Key}");
-                    }
+                    else { }
                 }
-                else
-                {
-                    // Debug.LogWarning($"[AboutMenuPatch] Не вдалося знайти шлях {target.Key} в меню About");
-                }
+                else { }
             }
         }
 
         private static void ApplyLocalization(Dictionary<string, Transform> transformMap)
         {
-            // Debug.Log("[AboutMenuPatch] Викорастання локалізації до меню About");
             foreach (var entry in LocalizationKeys)
             {
                 if (transformMap.TryGetValue(entry.Key, out Transform targetTransform))
@@ -178,24 +163,16 @@ namespace Ukrainization
                         {
                             localizer = textComponent.gameObject.AddComponent<TextLocalizer>();
                             localizer.key = entry.Value;
-                            // Debug.Log($"[AboutMenuPatch] Додано TextLocalizer до {entry.Key} з ключем {entry.Value}");
                         }
                         else if (localizer.key != entry.Value)
                         {
                             localizer.key = entry.Value;
                             localizer.RefreshLocalization();
-                            // Debug.Log($"[AboutMenuPatch] Оновлений ключ TextLocalizer для {entry.Key} на {entry.Value}");
                         }
                     }
-                    else
-                    {
-                        //  Debug.LogWarning($"[AboutMenuPatch] TextMeshProUGUI компонент не знайдений на {entry.Key}");
-                    }
+                    else { }
                 }
-                else
-                {
-                    // Debug.LogWarning($"[AboutMenuPatch] Не вдалось знайти шлях {entry.Key} до меню About");
-                }
+                else { }
             }
         }
     }

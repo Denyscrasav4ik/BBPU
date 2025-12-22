@@ -1,7 +1,6 @@
 using System.Collections;
 using HarmonyLib;
 using TMPro;
-// using Ukrainization.Runtime;
 using Ukrainization.API;
 using UnityEngine;
 

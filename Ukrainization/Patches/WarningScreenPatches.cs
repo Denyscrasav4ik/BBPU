@@ -132,8 +132,6 @@ namespace Ukrainization.Patches
         }
     }
 
-    // Цей Postfix-патч спрацює *після* того, як MTM101BMDE підготує екран попередження.
-    // Ми просто заміняємо англійський текст на український.
     [HarmonyPatch(typeof(WarningScreen))]
     internal class WarningScreen_Patch
     {
@@ -158,11 +156,9 @@ namespace Ukrainization.Patches
 
             string currentText = textBox.text;
 
-            // Переклад заголовків
             currentText = currentText.Replace("WARNING!", "УВАГА!");
             currentText = currentText.Replace("ERROR!", "ПОМИЛКА!");
 
-            // Переклад тексту попередження (якщо він є)
             if (
                 currentText.Contains(
                     "This game is not suitable for children or those who are easily disturbed."
@@ -173,7 +169,6 @@ namespace Ukrainization.Patches
                     "Ця гра не підходить для дітей, чи людей за слабкою психікою.\nВона включає гучні звуки, та лякаючі образи.";
             }
 
-            // Переклад інструкції "Press any button to continue"
             if (currentText.Contains("PRESS ANY BUTTON TO CONTINUE"))
             {
                 currentText = currentText.Replace(
@@ -183,15 +178,12 @@ namespace Ukrainization.Patches
             }
             else
             {
-                // Для випадків, коли вказана конкретна кнопка
                 currentText = System.Text.RegularExpressions.Regex.Replace(
                     currentText,
                     @"PRESS (.+) TO CONTINUE",
-                    "НАТИСНІТЬ $1 ЩОБ ПРОДОВЖИТИ"
+                    "НАТИСНІТЬ БУДЬ-ЯКУ КЛАВІШУ ЩОБ ПРОДОВЖИТИ"
                 );
             }
-
-            // Переклад інструкції виходу
             currentText = currentText.Replace("PRESS ALT+F4 TO EXIT", "НАТИСНІТЬ ALT+F4 ЩОБ ВИЙТИ");
 
             textBox.text = currentText;

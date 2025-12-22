@@ -32,10 +32,6 @@ namespace Ukrainization.Patches
         private static readonly List<KeyValuePair<string, Vector2>> AnchoredPositionTargets =
             new List<KeyValuePair<string, Vector2>>
             {
-                // new KeyValuePair<string, Vector2>("TimeText", new Vector2(50f, 4.5f)),
-
-                // new KeyValuePair<string, Vector2>("TimeValue", new Vector2(58f, 4.5f)),
-
                 new KeyValuePair<string, Vector2>("YTPText", new Vector2(50f, 74.5f)),
                 new KeyValuePair<string, Vector2>("YTPValue", new Vector2(58f, 74.5f)),
                 new KeyValuePair<string, Vector2>("TotalText", new Vector2(52f, -30.5f)),

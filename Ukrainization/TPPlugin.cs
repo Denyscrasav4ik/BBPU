@@ -150,8 +150,6 @@ namespace Ukrainization
             yield return "Оновлення плакатів...";
             UpdatePosters(modPath);
 
-            // Сканування нових плакатів у режимі розробки
-
             if (ConfigManager.IsDevModeEnabled())
             {
                 yield return "Сканування нових плакатів (DEV MODE)...";

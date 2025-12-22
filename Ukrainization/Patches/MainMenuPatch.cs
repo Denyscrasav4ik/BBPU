@@ -160,10 +160,6 @@ namespace Ukrainization.Patches
                 arrowObject.transform.SetParent(modInfo.transform, false);
 
                 RectTransform arrowRect = arrowObject.GetComponent<RectTransform>();
-                // arrowRect.anchorMin = new Vector2(1, 0.5f);
-                // arrowRect.anchorMax = new Vector2(1, 0.5f);
-                // arrowRect.pivot = new Vector2(0.5f, 0.5f);
-                // arrowRect.anchoredPosition = new Vector2(2, 2.4f);
                 arrowRect.sizeDelta = new Vector2(8f, 8f);
 
                 modInfo.AddComponent<ArrowPositioner>().Initialize(textComponent, arrowRect);

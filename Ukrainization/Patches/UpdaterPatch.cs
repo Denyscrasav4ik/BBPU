@@ -54,8 +54,6 @@ namespace Ukrainization.Patches
                 dummyReminder.SetActive(false);
 
                 GameObject.DontDestroyOnLoad(dummyReminder);
-
-                // API.Logger.Info("Створений фіктивний об'єкт DummyReminder для MTM101BaldAPI");
             }
 
             dummyReminder.transform.SetParent(parent, false);
@@ -88,7 +86,6 @@ namespace Ukrainization.Patches
                                         && method.DeclaringType.FullName.Contains("MTM101BaldAPI")
                                 )
                                 {
-                                    // API.Logger.Info($"Перехвачений доступ до Reminder з MTM101BaldAPI (метод: {method.DeclaringType.FullName}.{method.Name})");
                                     __result = GetDummyReminder(__instance);
                                     return false;
                                 }
@@ -126,8 +123,6 @@ namespace Ukrainization.Patches
                                         && method.DeclaringType.FullName.Contains("MTM101BaldAPI")
                                 )
                                 {
-                                    // API.Logger.Info($"Перехвачений доступ до Reminder крізь GetChild з MTM101BaldAPI (метод: {method.DeclaringType.FullName}.{method.Name})");
-
                                     Transform? oldParent = __result.parent;
 
                                     __result = GetDummyReminder(oldParent);

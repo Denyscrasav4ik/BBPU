@@ -15,8 +15,6 @@ namespace Ukrainization.Patches
             [HarmonyPostfix]
             private static void Postfix(ChallengeWin __instance)
             {
-                // We search for the text component within the ChallengeWin hierarchy.
-                // GetComponentsInChildren(true) is robust and finds components even if they are inactive.
                 var textComponents = __instance.GetComponentsInChildren<TextMeshProUGUI>(true);
                 var targetText = textComponents.FirstOrDefault(t => t.name == "Text (TMP)");
 

@@ -8,7 +8,6 @@ namespace Ukrainization.API
 {
     public static class PosterScanner
     {
-        /// <param name="modPath">Шлях до папки моду</param>
         public static void ScanAndExportNewPosters(string modPath)
         {
             if (!ConfigManager.IsDevModeEnabled())

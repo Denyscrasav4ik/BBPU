@@ -5,8 +5,6 @@ using HarmonyLib;
 using TMPro;
 using UnityEngine;
 
-// using Ukrainization.Runtime;
-
 namespace Ukrainization.Patches
 {
     internal class PlaceholderWinManagerPatch

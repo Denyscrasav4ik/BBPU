@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using HarmonyLib;
 using TMPro;
 using UnityEngine;
@@ -17,7 +16,7 @@ namespace Ukrainization.Patches
         private static readonly Dictionary<string, string> Map = new Dictionary<string, string>
         {
             { "Space", "Пробіл" },
-            { "Caps Lock", "Замок Капсу" },
+            { "Caps Lock", "Капс Лок" },
             { "Tab", "Таб" },
             { "ESC", "ЕСК" },
             { "Return", "Ентер" },
@@ -27,6 +26,16 @@ namespace Ukrainization.Patches
             { "Right Control", "Правий Контрол" },
             { "Left Alt", "Лівий Альт" },
             { "Right Alt", "Правий Альт" },
+            { "Left Command", "Ліва Команда" },
+            { "Right Command", "Права Команда" },
+            { "Delete", "Деліт" },
+            { "Insert", "Інсерт" },
+            { "Pause", "Пауза" },
+            { "Home", "Хом" },
+            { "End", "Енд" },
+            { "Keypad", "Клавіатурний" },
+            { "Backspace", "Бекспейс" },
+            { "Numlock", "Намлок" },
             { "Up Arrow", "Стрілка Вгору" },
             { "Down Arrow", "Стрілка Вниз" },
             { "Left Arrow", "Стрілка Вліво" },
@@ -58,23 +67,14 @@ namespace Ukrainization.Patches
             { "Back", "Назад" },
         };
 
-        private static readonly Regex UkrainianRegex = new Regex(
-            @"[\u0400-\u04FF]",
-            RegexOptions.Compiled
-        );
-
         static void Postfix(ref string __result)
         {
             if (string.IsNullOrEmpty(__result))
                 return;
 
-            if (UkrainianRegex.IsMatch(__result))
-                return;
-
             foreach (var pair in Map)
             {
-                var pattern = @"\b" + Regex.Escape(pair.Key) + @"\b";
-                __result = Regex.Replace(__result, pattern, pair.Value);
+                __result = __result.Replace(pair.Key, pair.Value);
             }
         }
     }

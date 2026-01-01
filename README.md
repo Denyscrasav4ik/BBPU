@@ -30,7 +30,7 @@
 
 * [Baldi's Basics Plus](https://www.basicallygames.com/baldis-basics-plus) <sub><sup>(0.13.X)</sup></sub>
 * [BepInEx](https://github.com/BepInEx/BepInEx/releases/latest) <sub><sup>(5.4.23.3+)</sup></sub>
-* [MTM101BaldAPI](https://gamebanana.com/mods/383711) <sub><sup>(10.0.0.0+)</sup></sub>
+* [MTM101BaldAPI](https://gamebanana.com/mods/383711) <sub><sup>(10.2.0.0+)</sup></sub>
 * [CyrillicPlus](https://gamebanana.com/mods/524258) <sub><sup>(1.2.1)</sup></sub>
 
 ## 📋 Відомі проблеми

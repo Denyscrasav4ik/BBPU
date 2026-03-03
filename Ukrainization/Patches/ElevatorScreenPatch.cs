@@ -199,6 +199,21 @@ namespace Ukrainization.Patches
             }
         }
 
+        [HarmonyPatch("Update")]
+        [HarmonyPostfix]
+        private static void UpdatePostfix(ElevatorScreen __instance, TMP_Text ___buttonLabel)
+        {
+            if (!Singleton<CoreGameManager>.Instance.levelGenError)
+                return;
+
+            if (___buttonLabel == null)
+                return;
+
+            ___buttonLabel.text = Singleton<LocalizationManager>.Instance.GetLocalizedText(
+                "Ukr_But_Menu"
+            );
+        }
+
         private class CustomTextLocalizer : MonoBehaviour
         {
             public string key = null!;

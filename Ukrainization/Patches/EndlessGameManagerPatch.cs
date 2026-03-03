@@ -28,6 +28,12 @@ namespace Ukrainization.Patches
             "Medium_EndlessGameManager(Clone)/Score/Rank",
         };
 
+        private static readonly string[] scorePaths = new string[]
+        {
+            "EndlessGameManager(Clone)/Score/Score",
+            "Medium_EndlessGameManager(Clone)/Score/Score",
+        };
+
         [HarmonyPatch("RestartLevel")]
         [HarmonyPostfix]
         private static void RestartLevelPostfix(EndlessGameManager __instance)
@@ -46,6 +52,7 @@ namespace Ukrainization.Patches
 
             PrepareLocalizationComponents();
             AdjustRankPositions();
+            AdjustScorePositions();
         }
 
         private static void AdjustRankPositions()
@@ -59,6 +66,23 @@ namespace Ukrainization.Patches
                     if (rectTransform != null)
                     {
                         rectTransform.anchoredPosition = new Vector2(-21f, -14f);
+                    }
+                }
+            }
+        }
+
+        private static void AdjustScorePositions()
+        {
+            foreach (string scorePath in scorePaths)
+            {
+                GameObject scoreObject = GameObject.Find(scorePath);
+                if (scoreObject != null)
+                {
+                    RectTransform rectTransform = scoreObject.GetComponent<RectTransform>();
+                    if (rectTransform != null)
+                    {
+                        Vector2 pos = rectTransform.anchoredPosition;
+                        rectTransform.anchoredPosition = new Vector2(pos.x, pos.y - 20f);
                     }
                 }
             }

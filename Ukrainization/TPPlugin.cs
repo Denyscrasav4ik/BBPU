@@ -47,8 +47,11 @@ namespace Ukrainization
         public static TPPlugin Instance { get; private set; } = null!;
         public static Dictionary<string, AudioClip> AllClips { get; private set; } =
             new Dictionary<string, AudioClip>();
+        public static Dictionary<Cubemap, Cubemap> CubemapReplacements { get; } =
+            new Dictionary<Cubemap, Cubemap>();
+
         private Harmony? harmonyInstance = null!;
-        private const string expectedGameVersion = "0.13.1";
+        private const string expectedGameVersion = "0.14";
 
         private static readonly string[] menuTextureNames =
         {
@@ -71,8 +74,7 @@ namespace Ukrainization
             API.Logger.Info(
                 $"Текстури: {(ConfigManager.AreTexturesEnabled() ? "Увімкнені" : "Вимкнені")}, "
                     + $"Звуки: {(ConfigManager.AreSoundsEnabled() ? "Увімкнені" : "Вимкнені")}, "
-                    + $"Логування: {(ConfigManager.IsLoggingEnabled() ? "Увімкнене" : "Вимкнене")}, "
-                    + $"Режим розробки: {(ConfigManager.IsDevModeEnabled() ? "УВІМКНЕНИЙ" : "Вимкнений")}"
+                    + $"Логування: {(ConfigManager.IsLoggingEnabled() ? "Увімкнене" : "Вимкнене")}"
             );
 
             harmonyInstance = new Harmony(UkrainizationTemp.ModGUID);
@@ -91,7 +93,6 @@ namespace Ukrainization
             LoadingEvents.RegisterOnAssetsLoaded(Info, OnAssetsLoaded(), LoadingEventOrder.Post);
 
             gameObject.AddComponent<MenuTextureManager>();
-            gameObject.AddComponent<Ukrainization.Patches.ButtonNamesPatch>();
         }
 
         private IEnumerator OnAssetsLoaded()
@@ -105,6 +106,9 @@ namespace Ukrainization
 
             yield return "Завантаження текстур...";
             ApplyAllTextures();
+
+            yield return "Завантаження скайбоксів...";
+            LoadCubemapReplacements(modPath);
 
             yield return "Завантаження звуків...";
             if (ConfigManager.AreSoundsEnabled())
@@ -149,14 +153,14 @@ namespace Ukrainization
 
             yield return "Оновлення плакатів...";
             UpdatePosters(modPath);
-
+#if DEBUG
             if (ConfigManager.IsDevModeEnabled())
             {
                 yield return "Сканування нових плакатів (DEV MODE)...";
 
                 PosterScanner.ScanAndExportNewPosters(modPath);
             }
-
+#endif
             API.Logger.Info("Завантаження ресурсів завершено!");
         }
 
@@ -283,6 +287,63 @@ namespace Ukrainization
                         API.Logger.Warning($"Не знайдено відповідну текстуру для: {textureName}");
                     }
                 }
+            }
+        }
+
+        private void LoadCubemapReplacements(string modPath)
+        {
+            string cubemapPath = Path.Combine(modPath, "Cubemaps");
+
+            if (!Directory.Exists(cubemapPath))
+                return;
+
+            API.Logger.Info("Завантаження замін скайбоксів ...");
+
+            var allCubemaps = Resources.FindObjectsOfTypeAll<Cubemap>();
+
+            foreach (string file in Directory.GetFiles(cubemapPath, "*.png"))
+            {
+                string targetName = Path.GetFileNameWithoutExtension(file);
+                Cubemap original = allCubemaps.FirstOrDefault(c => c.name == targetName);
+
+                if (original == null)
+                {
+                    API.Logger.Warning($"Оригінальний скайбокс не знайдено: {targetName}");
+                    continue;
+                }
+
+                Texture2D source = AssetLoader.TextureFromFile(file);
+                if (source == null)
+                    continue;
+
+                int faceSize = 256;
+                Cubemap replacement = new Cubemap(
+                    faceSize,
+                    original.format,
+                    original.mipmapCount > 1
+                );
+
+                var faceMap = new (CubemapFace face, int x, int y)[]
+                {
+                    (CubemapFace.PositiveY, 256, 0),
+                    (CubemapFace.NegativeY, 512, 0),
+                    (CubemapFace.PositiveX, 0, 256),
+                    (CubemapFace.NegativeZ, 256, 256),
+                    (CubemapFace.NegativeX, 512, 256),
+                    (CubemapFace.PositiveZ, 768, 256),
+                };
+
+                foreach (var (face, x, y) in faceMap)
+                {
+                    int flippedY = source.height - y - faceSize;
+
+                    Color[] pixels = source.GetPixels(x, flippedY, faceSize, faceSize);
+                    replacement.SetPixels(pixels, face);
+                }
+
+                replacement.Apply();
+                CubemapReplacements[original] = replacement;
+                API.Logger.Info($"Скайбокс '{targetName}' замінено.");
             }
         }
 

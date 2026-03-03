@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Ukrainization.API
 {
+#if DEBUG
     public static class PosterScanner
     {
         public static void ScanAndExportNewPosters(string modPath)
@@ -150,4 +151,5 @@ namespace Ukrainization.API
             }
         }
     }
+#endif
 }

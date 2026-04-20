@@ -22,7 +22,7 @@
 1. Встановіть [BepInEx](https://github.com/BepInEx/BepInEx)
 2. Встановіть [MTM101BaldAPI](https://gamebanana.com/mods/383711)
 3. Встановіть [CyrillicPlus](https://gamebanana.com/mods/524258)
-4. Завантажте останню версію мода зі [сторінки GameBanana](https://gamebanana.com/mods/617076)
+4. Завантажте останню версію мода зі [сторінки GitHub](https://github.com/Denyscrasav4ik/BBPU/releases/latest)
 5. Розпакуйте вміст архіву в папку гри
 6. Запустіть гру
 

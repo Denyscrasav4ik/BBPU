@@ -10,7 +10,7 @@ namespace Ukrainization.API
     {
         private const string RepoOwner = "Denyscrasav4ik";
         private const string RepoName = "BBPU";
-        private const string UpdateUrl = "https://gamebanana.com/mods/617076";
+        private const string UpdateUrl = $"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest";
 
         public static bool IsUpdateAvailable { get; private set; } = false;
         public static string LatestVersionString { get; private set; } = string.Empty;

@@ -51,7 +51,7 @@ namespace Ukrainization
             new Dictionary<Cubemap, Cubemap>();
 
         private Harmony? harmonyInstance = null!;
-        private const string expectedGameVersion = "0.14";
+        private const string expectedGameVersion = "0.14.2";
 
         private static readonly string[] menuTextureNames =
         {

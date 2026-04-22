@@ -1,0 +1,100 @@
+{
+    "items": [
+        {
+            "textKey": "Ukr_PST_HNT_Zone2",
+            "position": {
+                "x": 32,
+                "z": 32
+            },
+            "size": {
+                "x": 192,
+                "z": 192
+            },
+            "font": {
+                "m_FileID": 3866,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 258
+        },
+        {
+            "textKey": "2",
+            "position": {
+                "x": 72,
+                "z": 56
+            },
+            "size": {
+                "x": 128,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 35586,
+                "m_PathID": 0
+            },
+            "fontSize": 72,
+            "color": {
+                "r": 0.0,
+                "g": 0.75,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "2",
+            "position": {
+                "x": 68,
+                "z": 60
+            },
+            "size": {
+                "x": 128,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 35586,
+                "m_PathID": 0
+            },
+            "fontSize": 72,
+            "color": {
+                "r": 0.0,
+                "g": 0.5,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "2",
+            "position": {
+                "x": 64,
+                "z": 64
+            },
+            "size": {
+                "x": 128,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 35586,
+                "m_PathID": 0
+            },
+            "fontSize": 72,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "items": [
+        {
+            "textKey": "PST_CHK_LVL_Next",
+            "position": {
+                "x": 0,
+                "z": 156
+            },
+            "size": {
+                "x": 256,
+                "z": 32
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "textKey": "PST_CHK_LVL_Schoolhouse",
+            "position": {
+                "x": 24,
+                "z": 128
+            },
+            "size": {
+                "x": 208,
+                "z": 32
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        }
+    ]
+}

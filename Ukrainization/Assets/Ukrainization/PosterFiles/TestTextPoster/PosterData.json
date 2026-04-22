@@ -1,0 +1,100 @@
+{
+    "items": [
+        {
+            "textKey": "pst_test",
+            "position": {
+                "x": 32,
+                "z": 32
+            },
+            "size": {
+                "x": 192,
+                "z": 192
+            },
+            "font": {
+                "m_FileID": 36582,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "222222",
+            "position": {
+                "x": 32,
+                "z": 32
+            },
+            "size": {
+                "x": 8,
+                "z": 192
+            },
+            "font": {
+                "m_FileID": 36582,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 0.0,
+                "g": 1.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "33333",
+            "position": {
+                "x": 32,
+                "z": 96
+            },
+            "size": {
+                "x": 192,
+                "z": 8
+            },
+            "font": {
+                "m_FileID": 36584,
+                "m_PathID": 0
+            },
+            "fontSize": 36,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "444444",
+            "position": {
+                "x": 128,
+                "z": 0
+            },
+            "size": {
+                "x": 192,
+                "z": 192
+            },
+            "font": {
+                "m_FileID": 36582,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 257
+        }
+    ]
+}

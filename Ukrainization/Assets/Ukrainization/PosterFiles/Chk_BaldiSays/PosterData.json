@@ -1,0 +1,52 @@
+{
+    "items": [
+        {
+            "textKey": "PST_CHK_BaldiSays1",
+            "position": {
+                "x": 24,
+                "z": 140
+            },
+            "size": {
+                "x": 208,
+                "z": 96
+            },
+            "font": {
+                "m_FileID": 27032,
+                "m_PathID": 0
+            },
+            "fontSize": 28,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "PST_CHK_BaldiSays2",
+            "position": {
+                "x": 24,
+                "z": 88
+            },
+            "size": {
+                "x": 208,
+                "z": 96
+            },
+            "font": {
+                "m_FileID": 27028,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        }
+    ]
+}

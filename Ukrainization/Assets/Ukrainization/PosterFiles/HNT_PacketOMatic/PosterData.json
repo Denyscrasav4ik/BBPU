@@ -1,0 +1,76 @@
+{
+    "items": [
+        {
+            "textKey": "PST_HNT_PacketOMatic_0",
+            "position": {
+                "x": 30,
+                "z": 188
+            },
+            "size": {
+                "x": 144,
+                "z": 32
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            }
+        },
+        {
+            "textKey": "PST_HNT_PacketOMatic_1",
+            "position": {
+                "x": -6,
+                "z": 156
+            },
+            "size": {
+                "x": 256,
+                "z": 48
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            }
+        },
+        {
+            "textKey": "PST_HNT_PacketOMatic_1",
+            "position": {
+                "x": -4,
+                "z": 156
+            },
+            "size": {
+                "x": 256,
+                "z": 44
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            }
+        },
+        {
+            "textKey": "PST_HNT_PacketOMatic_2",
+            "position": {
+                "x": 16,
+                "z": 136
+            },
+            "size": {
+                "x": 200,
+                "z": 24
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            }
+        }
+    ]
+}

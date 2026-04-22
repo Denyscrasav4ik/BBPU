@@ -1,0 +1,52 @@
+{
+    "items": [
+        {
+            "textKey": "PST_PRI_Test1",
+            "position": {
+                "x": 48,
+                "z": 48
+            },
+            "size": {
+                "x": 160,
+                "z": 32
+            },
+            "font": {
+                "m_FileID": 27024,
+                "m_PathID": 0
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "PST_PRI_Test2",
+            "position": {
+                "x": 144,
+                "z": 96
+            },
+            "size": {
+                "x": 96,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 27018,
+                "m_PathID": 0
+            },
+            "fontSize": 12,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        }
+    ]
+}

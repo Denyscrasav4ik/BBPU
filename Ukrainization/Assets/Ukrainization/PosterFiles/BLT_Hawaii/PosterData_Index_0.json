@@ -1,0 +1,24 @@
+{
+    "textKey": "PST_BLT_Hawaii",
+    "position": {
+        "x": 68,
+        "z": 58
+    },
+    "size": {
+        "x": 120,
+        "z": 144
+    },
+    "font": {
+        "m_FileID": 27018,
+        "m_PathID": 0
+    },
+    "fontSize": 12,
+    "color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "style": 0,
+    "alignment": 514
+}

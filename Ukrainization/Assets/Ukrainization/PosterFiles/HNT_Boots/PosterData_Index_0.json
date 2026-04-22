@@ -1,0 +1,24 @@
+{
+    "textKey": "PST_HNT_Boots",
+    "position": {
+        "x": 64,
+        "z": 100
+    },
+    "size": {
+        "x": 128,
+        "z": 120
+    },
+    "font": {
+        "m_FileID": 3708,
+        "m_PathID": 0
+    },
+    "fontSize": 24,
+    "color": {
+        "r": 1.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "style": 0,
+    "alignment": 514
+}

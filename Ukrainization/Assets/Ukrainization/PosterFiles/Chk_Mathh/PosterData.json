@@ -1,0 +1,100 @@
+{
+    "items": [
+        {
+            "textKey": "PST_CHK_Math1",
+            "position": {
+                "x": 24,
+                "z": 88
+            },
+            "size": {
+                "x": 208,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 27028,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 257
+        },
+        {
+            "textKey": "PST_CHK_Math2",
+            "position": {
+                "x": 44,
+                "z": 88
+            },
+            "size": {
+                "x": 208,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 27028,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 1025
+        },
+        {
+            "textKey": "PST_CHK_Math2",
+            "position": {
+                "x": 100,
+                "z": 108
+            },
+            "size": {
+                "x": 208,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 27026,
+                "m_PathID": 0
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 1025
+        },
+        {
+            "textKey": "PST_CHK_Math3",
+            "position": {
+                "x": 148,
+                "z": 124
+            },
+            "size": {
+                "x": 208,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 27020,
+                "m_PathID": 0
+            },
+            "fontSize": 12,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 1025
+        }
+    ]
+}

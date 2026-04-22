@@ -1,0 +1,52 @@
+{
+    "items": [
+        {
+            "textKey": "PST_CHK_MathMachineTitle",
+            "position": {
+                "x": 0,
+                "z": 184
+            },
+            "size": {
+                "x": 256,
+                "z": 32
+            },
+            "font": {
+                "m_FileID": 3920,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "PST_CHK_MathMachineDesc",
+            "position": {
+                "x": 24,
+                "z": 88
+            },
+            "size": {
+                "x": 208,
+                "z": 96
+            },
+            "font": {
+                "m_FileID": 36572,
+                "m_PathID": 0
+            },
+            "fontSize": 12,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "textKey": "PST_TXT_Inspiration",
+            "position": {
+                "x": 0,
+                "z": 0
+            },
+            "size": {
+                "x": 256,
+                "z": 256
+            },
+            "font": {
+                "m_FileID": 3714,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        }
+    ]
+}

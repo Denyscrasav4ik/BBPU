@@ -1,0 +1,24 @@
+{
+    "textKey": "PST_PHT_BeAKid_1",
+    "position": {
+        "x": 17,
+        "z": 170
+    },
+    "size": {
+        "x": 220,
+        "z": 32
+    },
+    "font": {
+        "m_FileID": 3708,
+        "m_PathID": 0
+    },
+    "fontSize": 24,
+    "color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "style": 0,
+    "alignment": 256
+}

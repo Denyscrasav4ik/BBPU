@@ -1,0 +1,24 @@
+{
+    "textKey": "PST_CLS_BaldiSays9",
+    "position": {
+        "x": 110,
+        "z": 57
+    },
+    "size": {
+        "x": 128,
+        "z": 192
+    },
+    "font": {
+        "m_FileID": 27024,
+        "m_PathID": 0
+    },
+    "fontSize": 18,
+    "color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "style": 0,
+    "alignment": 514
+}

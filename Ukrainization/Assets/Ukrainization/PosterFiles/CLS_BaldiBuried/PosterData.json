@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "textKey": "PST_CLS_BaldiBuried",
+            "position": {
+                "x": 67,
+                "z": 166
+            },
+            "size": {
+                "x": 122,
+                "z": 61
+            },
+            "font": {
+                "m_FileID": 3708,
+                "m_PathID": 0
+            },
+            "fontSize": 24,
+            "color": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 258
+        }
+    ]
+}

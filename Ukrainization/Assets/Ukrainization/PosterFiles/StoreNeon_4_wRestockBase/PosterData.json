@@ -1,0 +1,100 @@
+{
+    "items": [
+        {
+            "textKey": "PST_Shop_Restock1",
+            "position": {
+                "x": 50,
+                "z": 48
+            },
+            "size": {
+                "x": 1,
+                "z": 192
+            },
+            "font": {
+                "m_FileID": 35610,
+                "m_PathID": 0
+            },
+            "fontSize": 36,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "PST_Shop_Restock2",
+            "position": {
+                "x": 76,
+                "z": 48
+            },
+            "size": {
+                "x": 1,
+                "z": 192
+            },
+            "font": {
+                "m_FileID": 35610,
+                "m_PathID": 0
+            },
+            "fontSize": 36,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        },
+        {
+            "textKey": "250",
+            "position": {
+                "x": 32,
+                "z": 30
+            },
+            "size": {
+                "x": 64,
+                "z": 24
+            },
+            "font": {
+                "m_FileID": 35604,
+                "m_PathID": 0
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 258
+        },
+        {
+            "textKey": "PST_Shop_YTPs",
+            "position": {
+                "x": 32,
+                "z": 16
+            },
+            "size": {
+                "x": 64,
+                "z": 24
+            },
+            "font": {
+                "m_FileID": 35604,
+                "m_PathID": 0
+            },
+            "fontSize": 18,
+            "color": {
+                "r": 1.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 258
+        }
+    ]
+}

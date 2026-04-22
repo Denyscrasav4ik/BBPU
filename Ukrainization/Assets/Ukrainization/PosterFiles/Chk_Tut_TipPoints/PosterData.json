@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "textKey": "PST_TUT_TipPoints",
+            "position": {
+                "x": 24,
+                "z": 88
+            },
+            "size": {
+                "x": 208,
+                "z": 128
+            },
+            "font": {
+                "m_FileID": 27026,
+                "m_PathID": 0
+            },
+            "fontSize": 19,
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "style": 0,
+            "alignment": 514
+        }
+    ]
+}

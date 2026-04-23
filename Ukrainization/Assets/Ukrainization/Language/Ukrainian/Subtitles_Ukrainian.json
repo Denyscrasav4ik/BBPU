@@ -255,7 +255,7 @@
     { "key": "Opt_Rumble", "value": "Гуркіт" },
     { "key": "Opt_ChangeName", "value": "Змінити ім'я" },
     { "key": "Opt_ResetEndlessScores", "value": "Скинути Нескінченні Рекорди" },
-    { "key": "Opt_ResetTripScores", "value": "Скинути Рекорди Поїздок" },
+    { "key": "Opt_ResetTripScores", "value": "Скинути Рекорди Подорожей" },
     { "key": "Opt_DeleteFile", "value": "Скинути Збережені дані" },
     {
       "key": "Opt_ConfirmNameChange",
@@ -352,7 +352,7 @@
     { "key": "Tip_ChangeName", "value": "Змінити назву цього файлу." },
     {
       "key": "Tip_DeleteEndlessScores",
-      "value": "<color=red>Скинути всі Рекорди Нескінченного режиму до значень за замовчуванням.</color>"
+      "value": "<color=red>Скидає всі рекорди нескінченного режиму\nдо початкових значень.</color>"
     },
     {
       "key": "Tip_DeleteTripScores",
@@ -360,7 +360,7 @@
     },
     {
       "key": "Tip_DeleteFile",
-      "value": "<color=red>Скинути всі дані збереження (крім Рекордів).\nПереконайтеся, що ви хочете це зробити, перш ніж продовжувати! </color>"
+      "value": "<color=red>Скидає всі дані збереження (крім рекордів).\nПереконайтеся, що ви хочете це зробити, перш ніж продовжувати!</color>"
     },
     {
       "key": "Tip_PlayStyle",

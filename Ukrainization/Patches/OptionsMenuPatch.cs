@@ -15,7 +15,7 @@ namespace Ukrainization
             {
                 new KeyValuePair<string, Vector2>(
                     "General/FlashToggle/ToggleText",
-                    new Vector2(-8f, 12f)
+                    new Vector2(-8f, 3f)
                 ),
                 new KeyValuePair<string, Vector2>(
                     "Data/Main/DeleteFileButton",
@@ -53,7 +53,7 @@ namespace Ukrainization
         {
             new KeyValuePair<string, Vector2>(
                 "General/FlashToggle/HotSpot",
-                new Vector2(232f, 60f)
+                new Vector2(232f, 40f)
             ),
             new KeyValuePair<string, Vector2>(
                 "Graphics/PixelFilterToggle/HotSpot",

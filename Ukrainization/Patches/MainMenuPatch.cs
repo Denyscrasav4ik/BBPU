@@ -59,11 +59,6 @@ namespace Ukrainization.Patches
         private static readonly List<SocialMediaInfo> SocialMediaLinks = new List<SocialMediaInfo>()
         {
             new SocialMediaInfo(
-                "GameBananaButton",
-                "Ukr_Menu_GameBanana",
-                "https://gamebanana.com/mods/617076"
-            ),
-            new SocialMediaInfo(
                 "YouTubeButton",
                 "Ukr_Menu_YouTube",
                 "https://www.youtube.com/@Denyscrasav4ik"
@@ -212,7 +207,7 @@ namespace Ukrainization.Patches
             panelRect.anchorMin = new Vector2(0, 1);
             panelRect.anchorMax = new Vector2(0, 1);
 
-            panelRect.anchoredPosition = new Vector2(145, -75);
+            panelRect.anchoredPosition = new Vector2(145, -60);
 
             float buttonHeight = 35f;
             float topBottomPadding = 20f;
